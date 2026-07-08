@@ -1,0 +1,9 @@
+{
+  "name": "InfraTransact India",
+  "description": "A comprehensive transparency portal for Indian infrastructure projects, connecting Government, Contractors, and Citizens to ensure quality, accountability, and safety.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
