@@ -450,7 +450,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ projects, complaints, onFileC
                 />
                 <UploadCloud className={`mx-auto h-12 w-12 ${complaintFiles.length > 0 ? 'text-green-500' : 'text-gray-400'}`} />
                 <p className="mt-2 text-sm text-gray-600">
-                  {complaintFiles.length > 0 ? <span className="text-green-600 font-bold">{complaintFiles.length} photos selected</span> : "Upload multiple photos for AI Analysis"}
+                  {complaintFiles.length > 0 ? <span className="text-green-600 font-bold">{complaintFiles.length} photos selected</span> : "Upload multiple photos for Analysis"}
                 </p>
                 <p className="text-xs text-gray-400 mt-1">Supports JPG, PNG</p>
               </div>

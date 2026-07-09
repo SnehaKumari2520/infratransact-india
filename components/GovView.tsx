@@ -217,7 +217,7 @@ const GovView: React.FC<GovViewProps> = ({
         {/* AI Audit Panel */}
         <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            AI Compliance Audit
+             Compliance Audit
           </h2>
           {selectedProject ? (
             <div className="space-y-4">
@@ -252,7 +252,7 @@ const GovView: React.FC<GovViewProps> = ({
               ) : (
                 <div className="bg-blue-50 p-4 rounded-lg text-sm text-blue-900 border border-blue-100">
                   <h4 className="font-bold flex items-center mb-2">
-                    <span className="text-xl mr-2">🤖</span> Gemini Report
+                    <span className="text-xl mr-2">🤖</span>  Report
                   </h4>
                   <p className="whitespace-pre-line leading-relaxed">
                     {aiReport}
@@ -281,7 +281,7 @@ const GovView: React.FC<GovViewProps> = ({
           ) : (
             <div className="text-center py-10 text-gray-400">
               <FileText className="w-12 h-12 mx-auto mb-2 opacity-20" />
-              <p>Select a project to generate an AI audit report.</p>
+              <p>Select a project to generate an audit report.</p>
             </div>
           )}
         </div>

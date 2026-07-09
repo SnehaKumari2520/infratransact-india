@@ -1,10 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
-import.meta.env.VITE_GEMINI_API_KEY
+
+// @ts-ignore
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 const getAiClient = () => {
-  const apiKey = process.env.API_KEY;
   if (!apiKey) {
-    console.error("API Key is missing");
+    console.error("VITE_GEMINI_API_KEY is missing from environment variables.");
     return null;
   }
   return new GoogleGenAI({ apiKey });
@@ -30,7 +31,7 @@ export const analyzeComplaintImage = async (base64Images: string[], description:
   if (!ai) return { analysis: "AI Service Unavailable", severity: "Medium" };
 
   try {
-    const prompt = `
+    const promptText = `
       You are an AI assistant for the Indian Ministry of Road Transport and Highways. 
       Analyze these images of infrastructure (road, bridge, etc.) submitted by a citizen along with their description: "${description}".
       
@@ -41,7 +42,7 @@ export const analyzeComplaintImage = async (base64Images: string[], description:
       Return the response in JSON format with keys: "analysis" (string) and "severity" (string).
     `;
 
-    // Create image parts for all uploaded images
+    // Map properly to the expected Part structure for inline image uploads
     const imageParts = base64Images.map(imgData => ({
       inlineData: {
         mimeType: "image/jpeg",
@@ -49,14 +50,13 @@ export const analyzeComplaintImage = async (base64Images: string[], description:
       }
     }));
 
+    // Fixed model instantiation matching the new SDK standards
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: {
-        parts: [
-          ...imageParts,
-          { text: prompt }
-        ]
-      },
+      contents: [
+        ...imageParts,
+        { text: promptText }
+      ],
       config: {
         responseMimeType: "application/json"
       }
@@ -77,7 +77,7 @@ export const generateComplianceReport = async (projectData: any) => {
   if (!ai) return "AI Service Unavailable";
 
   try {
-    const prompt = `
+    const promptText = `
       Generate a brief transparency report for this infrastructure project in India. 
       Data: ${JSON.stringify(projectData)}.
       
@@ -92,10 +92,10 @@ export const generateComplianceReport = async (projectData: any) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: prompt,
+      contents: promptText,
     });
 
-    return response.text;
+    return response.text || "No report content generated.";
   } catch (error) {
     console.error("Gemini Report Error:", error);
     return "Report generation failed.";
